@@ -117,7 +117,8 @@ class Tile(object):
         # ======================
 
         dot = dots[zoom]
-
+        self.dots = dots
+        self.zoom = zoom
 
         # Translate tile to pixel coords.
         # -------------------------------
@@ -149,7 +150,7 @@ class Tile(object):
         # ====
 
         self.dot = dot.img
-        self.pad = dot.half_size
+        self.pad = dots[zoom+3].half_size
 
         self.x = x
         self.y = y
@@ -229,7 +230,7 @@ class Tile(object):
                 x, y = gmerc.ll2px(point.latitude, point.longitude, self.zoom)
                 x = x - self.x1 # account for tile offset relative to 
                 y = y - self.y1 #  overall map
-                yield x-self.pad,y-self.pad
+                yield x-self.pad,y-self.pad,point.magnitude
 
 
         # Main logic
@@ -296,7 +297,13 @@ class Tile(object):
 
     def _add_points(self, tile, points):
         for dest in points:
-            tile.blit(self.dot, dest, None, pygame.BLEND_MULT)
+            if not (dest[2] > 400 or dest[2] < 18):
+                mag = int(dest[2] / 20.0) + self.zoom - 7
+                if mag > 30:
+                    mag = 30
+                elif mag < 0:
+                    mag = 0
+                tile.blit(self.dots[mag].img, dest[:2], None, pygame.BLEND_MULT)
         return tile
 
 

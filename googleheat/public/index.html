@@ -29,6 +29,8 @@
             var map = new GMap2(document.getElementById("map"));
             var lebanon = new GLatLng(39.81447,-98.565388);
             map.setCenter(lebanon, 4);
+            map.addControl(new GSmallMapControl());
+            map.addControl(new GMapTypeControl());
             map.addOverlay(new GTileLayerOverlay(heatmap));
         }
     

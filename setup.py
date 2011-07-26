@@ -17,7 +17,7 @@ setup(
         "SQLAlchemy>=0.5",
         "pygame>=1.9",
         "MySQL-python>=1.2.3",
-        "cx_Oracle",
+        #"cx_Oracle",
         "googlemaps>=1.0.2",
     ],
     setup_requires=["PasteScript>=1.6.3"],

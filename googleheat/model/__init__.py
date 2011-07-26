@@ -11,6 +11,7 @@ class Points(Base):
     uid = Column("UID", BLOB(length=16), primary_key=True, autoincrement=False)
     latitude = Column("LAT", Float)
     longitude = Column("LNG", Float)
+    magnitude = Column("MAG", Float)
     modtime = Column("MODTIME", DateTime)
     seentime = Column("SEENTIME", DateTime)
     
